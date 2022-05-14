@@ -44,9 +44,33 @@ public class MainWindow implements Initializable{
 		
 		gc.setFill(Color.rgb(240,240,240));
 		
-		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());	
+		gc.fillRect(50, 50, canvas.getWidth(), canvas.getHeight());	
 		
-		gc.setFill(Color.rgb(20,20,20));
+		
+		gc.setStroke(Color.GRAY);
+		
+		for(int i=0; i<4; i++) {
+			for(int j = 0; j<4; j++) {
+				gc.strokeRect((canvas.getWidth()/4)*j,(canvas.getHeight()/4)*i,canvas.getWidth()/4,canvas.getHeight()/4);
+			}
+		}
+		
+		
+		
+		gc.strokeText("0",0,canvas.getHeight());
+		
+		for(int i=0; i<=4; i++) {
+			if(i!=0) {
+				gc.strokeText((getMaxY()/4)*(4-i)+"", 0,(canvas.getHeight()/4)*i);
+			}
+		}
+		
+		for(int i=1; i<=4; i++) {
+			gc.strokeText((getMaxX()/4)*(i)+"", (canvas.getWidth()/4)*i,canvas.getHeight());
+		}
+		
+		gc.setStroke(Color.BLACK);
+		
 		
 	
 		for(int i = 0; i<data.size()-1; i++) {
@@ -67,10 +91,7 @@ public class MainWindow implements Initializable{
 			
 			nextX = transformX(nextX);
 			nextY = transformY(nextY);
-			
-			
-			System.out.println("\nx: "+x+"\ny: "+y);
-			
+				
 			gc.setFill(Color.BLACK);
 			gc.beginPath();
 			gc.moveTo(x,y);
@@ -147,17 +168,17 @@ public class MainWindow implements Initializable{
 	
 	public int transformX(int x) {
 
-		int multiplicator = (int) (canvas.getWidth() / getMaxX());
+		double multiplicator = canvas.getWidth() / getMaxX();
 		
-		x = getMinX() + (x*multiplicator);
-		
+		x = (int) (x*multiplicator);
+			
 		return x;
 	}
 	
 	public int transformY(int y) {
-		int multiplicator = (int) (canvas.getHeight() / getMaxY()) ;
+		double multiplicator = canvas.getHeight() / getMaxY();
 		
-		y = getMinY() + (y*multiplicator);
+		y = (int) (y*multiplicator);
 		
 		y = (int) (canvas.getHeight() - y);
 		
