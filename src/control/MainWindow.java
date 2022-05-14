@@ -61,7 +61,7 @@ public class MainWindow implements Initializable{
 		
 		for(int i=0; i<=4; i++) {
 			if(i!=0) {
-				gc.strokeText((getMaxY()/4)*(4-i)+"", 0,(canvas.getHeight()/4)*i);
+				gc.strokeText(((getMaxY() + getMinY())/4)*(4-i)+"", 0,(canvas.getHeight()/4)*i);
 			}
 		}
 		
@@ -78,16 +78,17 @@ public class MainWindow implements Initializable{
 			String point = data.get(i);
 			String nextPoint = data.get(i+1);
 			
-			
-			
 			int x = Integer.parseInt(point.split(",")[0]);
 			int y = Integer.parseInt(point.split(",")[1].split(";")[0]);
+			
 			
 			x = transformX(x);
 			y = transformY(y);
 			
+			
 			int nextX = Integer.parseInt(nextPoint.split(",")[0]);
 			int nextY = Integer.parseInt(nextPoint.split(",")[1].split(";")[0]);
+			
 			
 			nextX = transformX(nextX);
 			nextY = transformY(nextY);
@@ -100,8 +101,9 @@ public class MainWindow implements Initializable{
 			gc.closePath();
 			gc.stroke();
 			
+			gc.fillOval(x-3, y-3, 6, 6);
 			gc.fillOval(nextX-3, nextY-3, 6, 6);
-			
+
 		}	
 	}
 	
@@ -110,7 +112,6 @@ public class MainWindow implements Initializable{
 		
 		for(String point : data) {
 			int x = Integer.parseInt(point.split(",")[0]);
-			
 			
 			if(x<min) {
 				min = x;
@@ -170,7 +171,7 @@ public class MainWindow implements Initializable{
 
 		double multiplicator = canvas.getWidth() / getMaxX();
 		
-		x = (int) (x*multiplicator);
+		x = getMinX() + (int) (x*multiplicator);
 			
 		return x;
 	}
@@ -180,7 +181,7 @@ public class MainWindow implements Initializable{
 		
 		y = (int) (y*multiplicator);
 		
-		y = (int) (canvas.getHeight() - y);
+		y = getMinY() + (int) (canvas.getHeight() - y);
 		
 		return y;
 	}
